@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+  - name: Gather facts from targets
+    setup:
+    register: my_setup_var
+  - name: Save facts to local files
+    copy:
+      content: "{{ my_setup_var.ansible_facts }}"
+      dest: systems/{{ ansible_hostname }}
+    delegate_to: localhost
+...
