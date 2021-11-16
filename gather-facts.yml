@@ -6,6 +6,14 @@
   - name: Gather facts from targets
     setup:
     register: my_setup_var
+  - name: Create systems directory
+    file:
+      path: ./systems
+      state: directory
+      mode: '0755'
+      owner: egs
+      group: egs
+    delegate_to: localhost
   - name: Save facts to local files
     copy:
       content: "{{ my_setup_var.ansible_facts }}"
